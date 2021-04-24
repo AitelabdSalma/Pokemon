@@ -3,9 +3,10 @@ import { Layout, BackTop } from "antd";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import SideBar from "../components/partials/SideBar";
 import TopBar from "../components/partials/TopBar";
 import Footer from "../components/partials/Footer";
+
+import './ApplicationContainer.css';
 
 const ApplicationContainer = props => {
   const { children } = props;
@@ -14,7 +15,6 @@ const ApplicationContainer = props => {
 
   return (
     <Layout style={{ flexDirection: "row", minHeight: "100vh" }}>
-      <SideBar />
       <Layout>
         <TopBar />
         <Content>
@@ -34,7 +34,7 @@ ApplicationContainer.propTypes = {
 const LayoutContent = styled.div`
   padding: 24px;
   max-width: 1100px;
-  margin: 70px auto 0;
+  margin: 70px  0;
   h1 {
     font-size: 20px;
     font-weight: 600;
