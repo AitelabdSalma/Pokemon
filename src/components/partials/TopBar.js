@@ -1,6 +1,4 @@
 import React from "react";
-import { Layout } from "antd";
-import styled from "styled-components";
 
 const TopBar = () => {
 
@@ -10,7 +8,7 @@ const TopBar = () => {
     </div>
   );
 };
-
+/*
 const HeaderStyled = styled(props => <Layout.Header {...props} />)`
   height: 70px;
   box-shadow: 0 4px 7px -4px rgba(0, 0, 0, 0.1);
@@ -101,6 +99,6 @@ const HeaderStyled = styled(props => <Layout.Header {...props} />)`
     }
   }
 `;
-
+*/
 
 export default TopBar

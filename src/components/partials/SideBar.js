@@ -1,34 +1,17 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
+import styled from "styled-components"
 
-import Menu from "./Menu";
-import { Logo } from "../../../constants/ui";
-import { images } from "./_resources";
-
-export default () => {
-  const [collapsed, setCollapsed] = useState(true);
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
-
-  const handleCloseMenu = e => {
-    setCollapsed(true);
-  };
-
+const SideBar = () => {
   return (
-    <SideBar className={collapsed && "collapsed"}>
-      <div className="topHeader">
-        <div className="menu" onClick={() => toggleCollapsed()}>
-          <img src={images.iconMenu} alt="Menu" />
-        </div>
-        <Logo />
-      </div>
-      <Menu collapsed={collapsed} handleCloseMenu={handleCloseMenu} />
-    </SideBar>
+    <SideBarStyle >
+      hii
+    </SideBarStyle>
   );
 };
 
-const SideBar = styled.div`
+
+
+const SideBarStyle = styled.div`
   box-shadow: 4px 0 7px -4px rgba(0, 0, 0, 0.1);
   min-height: 100vh;
   background: #fff;
@@ -66,3 +49,8 @@ const SideBar = styled.div`
     }
   }
 `;
+
+
+
+
+export default SideBar

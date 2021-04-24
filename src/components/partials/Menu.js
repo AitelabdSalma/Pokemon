@@ -5,45 +5,45 @@ import { NavLink } from "react-router-dom";
 
 import { images } from "./_resources";
 
-export default ({ collapsed, handleCloseMenu }) => {
-  const { SubMenu, Item } = Menu;
-  const [authority, setAuthority] = useState(null);
+const MenuBar = ({ collapsed, handleCloseMenu }) => {
+  const { SubMenu, Item } = Menu
+  const [authority, setAuthority] = useState(null)
   useEffect(() => {
     localStorage.getItem("authority")
       ? setAuthority(JSON.parse(localStorage.getItem("authority")))
-      : setAuthority(null);
-  }, []);
+      : setAuthority(null)
+  }, [])
 
   const menuCreate =
     authority && authority.find(item => item.authority === "CreatTiers")
       ? {
-          name: "Nouveau Tiers",
-          icon: images.iconNewPM,
-          path: "/new/tiers"
-        }
+        name: "Nouveau Tiers",
+        icon: images.iconNewPM,
+        path: "/new/tiers"
+      }
       : null;
 
   const menuSearch =
     authority && authority.find(item => item.authority === "RechTiers")
       ? {
-          name: "Reherche Tiers/Prospect",
-          icon: images.iconSearchTiers,
-          path: "/tiers/search"
-        }
+        name: "Reherche Tiers/Prospect",
+        icon: images.iconSearchTiers,
+        path: "/tiers/search"
+      }
       : null;
 
   const menuConformite =
     authority &&
-    authority.find(
-      item =>
-        item.authority === "RetourCriblage" ||
-        item.authority === "RejetCriblage"
-    )
+      authority.find(
+        item =>
+          item.authority === "RetourCriblage" ||
+          item.authority === "RejetCriblage"
+      )
       ? {
-          name: "Contrôle Conformité",
-          icon: images.iconControl,
-          path: "/tiers/controleConformite"
-        }
+        name: "Contrôle Conformité",
+        icon: images.iconControl,
+        path: "/tiers/controleConformite"
+      }
       : null;
 
   const menuItems = [
@@ -93,7 +93,7 @@ export default ({ collapsed, handleCloseMenu }) => {
                 }
               >
                 {item.subMenu &&
-                  item.subMenu.map((subItem, index) => {
+                  item.subMenu.map((subItem) => {
                     if (subItem) {
                       return (
                         <Item
@@ -132,6 +132,8 @@ export default ({ collapsed, handleCloseMenu }) => {
     </MenuCSS>
   );
 };
+
+
 const MenuCSS = styled(props => <Menu {...props} />)`
   position: relative;
   li {
@@ -211,3 +213,6 @@ const MenuCSS = styled(props => <Menu {...props} />)`
     }
   }
 `;
+
+
+export default MenuBar

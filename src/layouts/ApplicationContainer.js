@@ -5,10 +5,11 @@ import styled from "styled-components";
 
 import SideBar from "../components/partials/SideBar";
 import TopBar from "../components/partials/TopBar";
+import Footer from "../components/partials/Footer";
 
 const ApplicationContainer = props => {
   const { children } = props;
-  const { Footer, Content } = Layout;
+  const { Content } = Layout;
 
 
   return (
@@ -20,15 +21,7 @@ const ApplicationContainer = props => {
           <BackTop />
           <LayoutContent>{children}</LayoutContent>
         </Content>
-
-        <Footer
-          style={{
-            textAlign: "center",
-            backgroundColor: "transparent"
-          }}
-        >
-          &copy;  Pokemon 0.0.0
-        </Footer>
+        <Footer />
       </Layout>
     </Layout>
   );
