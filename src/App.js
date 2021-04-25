@@ -20,17 +20,17 @@ const App = () => {
       />
       <AppRoute
         exact
-        path="/viewPokemon"
+        path="/viewPokemon/id"
         layout={ApplicationContainer}
         component={ViewPokemon}
       />
       <AppRoute
         exact
-        path="/type"
+        path="/type/:id"
         layout={ApplicationContainer}
         component={TypePokemone}
       />
-      <Redirect to="/type" />
+      <Redirect to="/" />
       <AppRoute path="**" layout={ApplicationContainer} component={Page404} />
     </Switch>
   );

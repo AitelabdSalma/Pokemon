@@ -1,22 +1,40 @@
-import { Table } from 'antd';
-//import './home.css';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux'
+import * as actions from "../../stores/actions";
+import { Tableau } from "../../components/UI/table"
+import {
+    RightOutlined
+} from '@ant-design/icons';
 
-function App() {
+const Home = () => {
+    const pageSize = 20
 
-    const dataSource = [
-        {
-            key: '1',
-            name: 'Mike',
-            age: 32,
-            address: '10 Downing Street',
-        },
-        {
-            key: '2',
-            name: 'John',
-            age: 42,
-            address: '10 Downing Street',
-        },
-    ];
+    const [offSet, setOffSet] = useState(0)
+
+    const [currentPage, setCurrentPage] = useState(0)
+    const [pokemonList, setPokemonList] = useState([])
+
+    const dispatch = useDispatch()
+    const getPokemonList = (offset) => dispatch(actions.getPokemonListAction(pageSize, offset))
+
+    useEffect(() => {
+        console.log("result pokemonList", pokemonList)
+    }, [pokemonList])
+
+
+    useEffect(() => {
+        setOffSet(currentPage * pageSize)
+    }, [currentPage])
+
+
+    useEffect(() => {
+        console.log("result 1", getPokemonList(offSet));
+        getPokemonList(offSet).then(result => {
+            console.log("result", result && result.data, result && result.data && result.data.results)
+            return setPokemonList(result && result.data && result.data.results)
+        })
+    }, [offSet])
+
 
     const columns = [
         {
@@ -25,22 +43,32 @@ function App() {
             key: 'name',
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-        },
+            title: 'View pokemon',
+            dataIndex: 'url',
+            key: 'url',
+            render: (text, record) => (
+                <span className="icon">
+                    <a
+                        href
+                        onClick={() => console.log("hehehe")
+                            //handleRedirectToView(record.referenceDossier, record.etape.code)
+                        }
+                    >
+                        <RightOutlined />
+                    </a>
+                </span>)
+        }
     ];
 
     return (
         <div className="App">
-            <Table dataSource={dataSource} columns={columns} />;
+            <Tableau
+                data={pokemonList}
+                columns={columns}
+                current={currentPage}
+                onChange={(page) => setCurrentPage(page)} />
         </div>
     );
 }
 
-export default App;
+export default Home;
