@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import * as actions from "../../stores/actions";
 import { Link, withRouter } from 'react-router-dom';
-import { Card, PageHeader } from 'antd';
+import { Card } from 'antd';
 import { Tableau } from '../../components/UI/table';
 import {
     RightOutlined
 } from '@ant-design/icons';
+import Title from '../../components/partials/Titre';
 
 const { Meta } = Card;
 
@@ -56,14 +57,13 @@ const ViewPokemon = ({ location }) => {
 
     return (
         <div >
-            <PageHeader
-                className="site-page-header"
-                title="Pokemon Card"
+            <Title
+                title={`Pokemon Card : ${pokemon.name}`}
             />
             {pokemon && (
                 <Card
                     hoverable
-                    style={{ width: 500 }}
+                    style={{ width: 500, margin: "0 auto" }}
                     cover={<img alt={pokemon.name} src={pokemon.sprites && pokemon.sprites.front_default} />}
                 >
                     <Meta title={`Name : ${pokemon.name}`} description={`Weight : ${pokemon.weight}`} />

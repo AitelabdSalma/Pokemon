@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { images } from "./_resources";
 import "./TopBar.css"
 import styled from "styled-components";
@@ -12,12 +11,7 @@ const TopBar = () => {
         <a href="/" class="logo">
           <img src={images.iconMenu} alt="" />
         </a>
-        <div class="header-right">
-          <Link to="/">Home</Link>
-        </div>
       </LogoStyled>
-
-
     </div>
   )
 }

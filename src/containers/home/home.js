@@ -6,7 +6,7 @@ import {
     RightOutlined
 } from '@ant-design/icons';
 import { Link, withRouter } from 'react-router-dom';
-import { PageHeader } from 'antd';
+import Title from '../../components/partials/Titre';
 
 const Home = () => {
     const pageSize = 20
@@ -64,9 +64,8 @@ const Home = () => {
     ];
 
     return (
-        <div >
-            <PageHeader
-                className="site-page-header"
+        <div className="home" >
+            <Title
                 title="Pokemon List"
             />
             <Tableau

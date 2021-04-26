@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import * as actions from "../../stores/actions";
 import { Link, withRouter } from 'react-router-dom';
-import { Card, PageHeader } from 'antd';
 import { Tableau } from '../../components/UI/table';
 import {
     RightOutlined
 } from '@ant-design/icons';
-
-const { Meta } = Card;
+import Title from '../../components/partials/Titre';
 
 const TypePokemon = ({ location, ...props }) => {
     const pageSize = 20
@@ -62,11 +60,9 @@ const TypePokemon = ({ location, ...props }) => {
         <div >
             {pokemonType && (
                 <div>
-                    <PageHeader
-                        className="site-page-header"
-                        title="Pokemon type"
+                    <Title
+                        title={`Pokemon type : ${pokemonType.id}  -  ${pokemonType.name}`}
                     />
-                    <Meta title={`id : ${pokemonType.id}`} description={`Type : ${pokemonType.name}`} />
                     <br />
                     <Tableau
                         data={pokemonType.pokemon}
