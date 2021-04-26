@@ -14,7 +14,7 @@ export const Tableau = ({
   selectedRowKeys,
   expandedRowRender,
   className,
-  scroll
+  scroll,
 }) => {
   return (
     <TableStyled>
@@ -24,7 +24,7 @@ export const Tableau = ({
             ? {
               type: "checkbox",
               onChange: onChangeSelect,
-              selectedRowKeys: selectedRowKeys
+              selectedRowKeys: selectedRowKeys,
             }
             : false
         }
@@ -43,10 +43,9 @@ export const Tableau = ({
         total={total}
         hideOnSinglePage
       />
-    </TableStyled >
+    </TableStyled>
   );
 };
-
 
 const TableStyled = styled.div`
   float: left;
@@ -113,7 +112,7 @@ const TableStyled = styled.div`
   }
 `;
 
-const PaginationStyled = styled(props => <Pagination {...props} />)`
+const PaginationStyled = styled((props) => <Pagination {...props} />)`
   float: left;
   width: 100%;
   margin-top: 20px !important;
