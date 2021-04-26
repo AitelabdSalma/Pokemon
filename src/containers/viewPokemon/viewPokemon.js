@@ -57,9 +57,11 @@ const ViewPokemon = ({ location }) => {
 
     return (
         <div >
+
             <Title
-                title={`Pokemon Card : ${pokemon.name}`}
+                title={`Pokemon Card : ${(pokemon && pokemon.name) || ""}`}
             />
+
             {pokemon && (
                 <Card
                     hoverable
