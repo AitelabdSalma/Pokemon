@@ -1,57 +1,49 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import * as actions from "../../stores/actions";
-import { Tableau } from "../../components/UI/table"
+import { Link, withRouter } from 'react-router-dom';
+import { Card } from 'antd';
+import { Tableau } from '../../components/UI/table';
 import {
     RightOutlined
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 
-const ViewPokemon = () => {
-    const pageSize = 20
+const { Meta } = Card;
 
-    const [offSet, setOffSet] = useState(0)
-    const [total, setTotal] = useState(0)
-    const [loading, setLoading] = useState(false)
+const ViewPokemon = ({ location, ...props }) => {
 
-
-    const [currentPage, setCurrentPage] = useState(0)
-    const [pokemonList, setPokemonList] = useState([])
+    const pokemonURL = location && location.state && location.state.url
+    const [pokemon, setPokemon] = useState(false)
 
     const dispatch = useDispatch()
-    const getPokemonList = (offset) => dispatch(actions.getPokemonListAction(pageSize, offset))
+    const getPokemon = (url) => dispatch(actions.getPokemonAction(url))
 
     useEffect(() => {
-        setLoading(true)
-        getPokemonList(offSet).then(result => {
-            setPokemonList(result && result.data && result.data.results)
-            let count = result && result.data && result.data.count
-            setTotal((count / pageSize))
-            setLoading(false)
+        pokemonURL && getPokemon(pokemonURL).then(result => {
+            console.log("result", result)
+            setPokemon(result && result.data)
         })
-    }, [offSet])// eslint-disable-line react-hooks/exhaustive-deps
-
-    useEffect(() => {
-        setOffSet(currentPage * pageSize)
-    }, [currentPage])
+    }, [pokemonURL])// eslint-disable-line react-hooks/exhaustive-deps
 
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
+            title: 'Type',
+            dataIndex: 'type',
             key: 'name',
+            render: (text, record) => record.type && record.type.name
         },
         {
-            title: 'View pokemon',
+            title: 'View type',
             dataIndex: 'url',
             key: 'url',
             render: (text, record) => (
                 <span className="icon">
+                    {record.url}
                     <Link
                         to={{
-                            pathname: `/viewPokemon`,
+                            pathname: `/type`,
                             state: {
-                                url: record.record
+                                url: record.type && record.type.url
                             }
                         }}
                     >
@@ -62,18 +54,26 @@ const ViewPokemon = () => {
         }
     ];
 
+
     return (
-        <div className="App">
-            heheeeee
-            <Tableau
-                data={pokemonList}
-                loading={loading}
-                columns={columns}
-                current={currentPage}
-                onChange={(page) => setCurrentPage(page)}
-                total={total} />
+        <div >
+
+            {pokemon && (
+                <Card
+                    hoverable
+                    style={{ width: 500 }}
+                    cover={<img alt={pokemon.name} src={pokemon.sprites && pokemon.sprites.front_default} />}
+                >
+                    <Meta title={`Name : ${pokemon.name}`} description={`Weight : ${pokemon.weight}`} />
+                    <br />
+                    <Tableau
+                        data={pokemon.types}
+                        columns={columns}
+                    />
+                </Card>)}
+
         </div>
     )
 }
 
-export default ViewPokemon;
+export default withRouter(ViewPokemon)

@@ -5,7 +5,7 @@ import { Tableau } from "../../components/UI/table"
 import {
     RightOutlined
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const Home = () => {
     const pageSize = 20
@@ -37,7 +37,7 @@ const Home = () => {
 
     const columns = [
         {
-            title: 'Name',
+            title: 'Pokemon',
             dataIndex: 'name',
             key: 'name',
         },
@@ -51,7 +51,7 @@ const Home = () => {
                         to={{
                             pathname: `/viewPokemon`,
                             state: {
-                                url: record.record
+                                url: record.url
                             }
                         }}
                     >
@@ -75,4 +75,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default withRouter(Home)

@@ -7,6 +7,10 @@ export const getPokemonByName = name => {
   return fetchData(`${URL}/pokemon/${name}`, "GET");
 }
 
+export const getPokemon = url => {
+  return fetchData(url, "GET");
+}
+
 export const getPokemonByID = id => {
   return fetchData(`${URL}/pokemon/${id}`, "GET");
 }
@@ -14,6 +18,11 @@ export const getPokemonByID = id => {
 export const getPokemonTypeByID = id => {
   return fetchData(`${URL}/pokemon/${id}`, "GET");
 }
+
+export const getPokemonType = url => {
+  return fetchData(url, "GET");
+}
+
 
 export const getPokemonAbilityByID = id => {
   return fetchData(`${URL}/pokemon/${id}`, "GET");
