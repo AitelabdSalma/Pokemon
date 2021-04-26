@@ -33,16 +33,11 @@ ApplicationContainer.propTypes = {
 
 const LayoutContent = styled.div`
   padding: 24px;
-  max-width: 1100px;
-  margin: 70px  0;
   h1 {
     font-size: 20px;
     font-weight: 600;
     color: #00979a;
     margin-bottom: 20px;
-  }
-  @media (max-width: 1600px) {
-    margin: 70px 0 0 280px;
   }
 `;
 

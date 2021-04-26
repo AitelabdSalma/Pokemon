@@ -5,11 +5,15 @@ import { Tableau } from "../../components/UI/table"
 import {
     RightOutlined
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const pageSize = 20
 
     const [offSet, setOffSet] = useState(0)
+    const [total, setTotal] = useState(0)
+    const [loading, setLoading] = useState(false)
+
 
     const [currentPage, setCurrentPage] = useState(0)
     const [pokemonList, setPokemonList] = useState([])
@@ -18,23 +22,18 @@ const Home = () => {
     const getPokemonList = (offset) => dispatch(actions.getPokemonListAction(pageSize, offset))
 
     useEffect(() => {
-        console.log("result pokemonList", pokemonList)
-    }, [pokemonList])
-
+        setLoading(true)
+        getPokemonList(offSet).then(result => {
+            setPokemonList(result && result.data && result.data.results)
+            let count = result && result.data && result.data.count
+            setTotal((count / pageSize))
+            setLoading(false)
+        })
+    }, [offSet])// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         setOffSet(currentPage * pageSize)
     }, [currentPage])
-
-
-    useEffect(() => {
-        console.log("result 1", getPokemonList(offSet));
-        getPokemonList(offSet).then(result => {
-            console.log("result", result && result.data, result && result.data && result.data.results)
-            return setPokemonList(result && result.data && result.data.results)
-        })
-    }, [offSet])
-
 
     const columns = [
         {
@@ -48,14 +47,17 @@ const Home = () => {
             key: 'url',
             render: (text, record) => (
                 <span className="icon">
-                    <a
-                        href
-                        onClick={() => console.log("hehehe")
-                            //handleRedirectToView(record.referenceDossier, record.etape.code)
-                        }
+                    <Link
+                        to={{
+                            pathname: `/viewPokemon`,
+                            state: {
+                                url: record.record
+                            }
+                        }}
                     >
                         <RightOutlined />
-                    </a>
+                    </Link>
+
                 </span>)
         }
     ];
@@ -64,11 +66,13 @@ const Home = () => {
         <div className="App">
             <Tableau
                 data={pokemonList}
+                loading={loading}
                 columns={columns}
                 current={currentPage}
-                onChange={(page) => setCurrentPage(page)} />
+                onChange={(page) => setCurrentPage(page)}
+                total={total} />
         </div>
-    );
+    )
 }
 
 export default Home;

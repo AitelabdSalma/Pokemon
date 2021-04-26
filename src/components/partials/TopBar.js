@@ -1,23 +1,38 @@
 import React from "react";
-import { Header } from "antd/lib/layout/layout";
-
+import { Link } from "react-router-dom";
+import { images } from "./_resources";
 import "./TopBar.css"
+import styled from "styled-components";
 
 const TopBar = () => {
 
   return (
-    <Header>
-      <div class="header">
-        <a href="#default" class="logo">gg</a>
+    <div class="header">
+      <LogoStyled>
+        <a href="/" class="logo">
+          <img src={images.iconMenu} alt="" />
+        </a>
         <div class="header-right">
-          <a class="active" href="#home">Home</a>
-          <a href="#contact">Contact</a>
-          <a href="#about">About</a>
+          <Link to="/">Home</Link>
         </div>
-      </div>
-    </Header>
+      </LogoStyled>
+
+
+    </div>
   )
 }
+
+export const LogoStyled = styled.div`
+  width: inherit;
+  height: 59px;
+  width: 100%;
+  margin: auto;
+  padding: 5px;
+  img {
+    max-width: 100%;
+    height: 50px;
+  }
+`;
 
 
 export default TopBar

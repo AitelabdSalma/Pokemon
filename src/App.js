@@ -14,19 +14,20 @@ const App = () => {
   return (
     <Switch>
       <AppRoute
+        exact
         path="/"
         layout={ApplicationContainer}
         component={Home}
       />
       <AppRoute
         exact
-        path="/viewPokemon/id"
+        path="/viewPokemon"
         layout={ApplicationContainer}
         component={ViewPokemon}
       />
       <AppRoute
         exact
-        path="/type/:id"
+        path="/type"
         layout={ApplicationContainer}
         component={TypePokemone}
       />

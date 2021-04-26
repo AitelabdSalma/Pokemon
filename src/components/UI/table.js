@@ -3,47 +3,48 @@ import { Table, Pagination } from "antd";
 import styled from "styled-components";
 
 export const Tableau = ({
-    columns,
-    data,
-    loading,
-    total,
-    current,
-    onChange,
-    rowSelection,
-    onChangeSelect,
-    selectedRowKeys,
-    expandedRowRender,
-    className,
-    scroll
+  columns,
+  data,
+  loading,
+  total,
+  current,
+  onChange,
+  rowSelection,
+  onChangeSelect,
+  selectedRowKeys,
+  expandedRowRender,
+  className,
+  scroll
 }) => {
-    return (
-        <TableStyled>
-            <Table
-                rowSelection={
-                    rowSelection
-                        ? {
-                            type: "checkbox",
-                            onChange: onChangeSelect,
-                            selectedRowKeys: selectedRowKeys
-                        }
-                        : false
-                }
-                columns={columns}
-                className={className}
-                dataSource={data}
-                expandedRowRender={expandedRowRender}
-                loading={loading}
-                pagination={false}
-                scroll={scroll}
-            />
-            <PaginationStyled
-                current={current}
-                onChange={onChange}
-                total={total}
-                hideOnSinglePage
-            />
-        </TableStyled >
-    );
+  return (
+    <TableStyled>
+      <Table
+        rowSelection={
+          rowSelection
+            ? {
+              type: "checkbox",
+              onChange: onChangeSelect,
+              selectedRowKeys: selectedRowKeys
+            }
+            : false
+        }
+        columns={columns}
+        className={className}
+        dataSource={data}
+        expandedRowRender={expandedRowRender}
+        loading={loading}
+        pagination={false}
+        scroll={scroll}
+      />
+      <PaginationStyled
+        defaultCurrent={current}
+        current={current}
+        onChange={onChange}
+        total={total}
+        hideOnSinglePage
+      />
+    </TableStyled >
+  );
 };
 
 

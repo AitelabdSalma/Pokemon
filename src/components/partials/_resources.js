@@ -1,4 +1,4 @@
-import iconMenu from "../../assets/images/logo512.png";
+import iconMenu from "../../assets/images/Pokemone.webp";
 
 export const images = {
   iconMenu,

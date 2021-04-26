@@ -1,21 +1,79 @@
-import './viewPokemon.css';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux'
+import * as actions from "../../stores/actions";
+import { Tableau } from "../../components/UI/table"
+import {
+    RightOutlined
+} from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
-function App() {
+const ViewPokemon = () => {
+    const pageSize = 20
+
+    const [offSet, setOffSet] = useState(0)
+    const [total, setTotal] = useState(0)
+    const [loading, setLoading] = useState(false)
+
+
+    const [currentPage, setCurrentPage] = useState(0)
+    const [pokemonList, setPokemonList] = useState([])
+
+    const dispatch = useDispatch()
+    const getPokemonList = (offset) => dispatch(actions.getPokemonListAction(pageSize, offset))
+
+    useEffect(() => {
+        setLoading(true)
+        getPokemonList(offSet).then(result => {
+            setPokemonList(result && result.data && result.data.results)
+            let count = result && result.data && result.data.count
+            setTotal((count / pageSize))
+            setLoading(false)
+        })
+    }, [offSet])// eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        setOffSet(currentPage * pageSize)
+    }, [currentPage])
+
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'View pokemon',
+            dataIndex: 'url',
+            key: 'url',
+            render: (text, record) => (
+                <span className="icon">
+                    <Link
+                        to={{
+                            pathname: `/viewPokemon`,
+                            state: {
+                                url: record.record
+                            }
+                        }}
+                    >
+                        <RightOutlined />
+                    </Link>
+
+                </span>)
+        }
+    ];
+
     return (
         <div className="App">
-            <header className="App-header">
-                <p>Edit <code>src/App.js</code> and save to reload. </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-        </a>
-            </header>
+            heheeeee
+            <Tableau
+                data={pokemonList}
+                loading={loading}
+                columns={columns}
+                current={currentPage}
+                onChange={(page) => setCurrentPage(page)}
+                total={total} />
         </div>
-    );
+    )
 }
 
-export default App;
+export default ViewPokemon;
