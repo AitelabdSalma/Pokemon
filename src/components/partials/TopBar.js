@@ -20,7 +20,7 @@ export const LogoStyled = styled.div`
   width: inherit;
   height: 59px;
   width: 100%;
-  margin: auto;
+  margin:  0 auto;
   padding: 5px;
   img {
     max-width: 100%;
