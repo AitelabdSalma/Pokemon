@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import * as actions from "../../stores/actions";
 import { Link, withRouter } from 'react-router-dom';
-import { Card } from 'antd';
+import { Card, PageHeader } from 'antd';
 import { Tableau } from '../../components/UI/table';
 import {
     RightOutlined
@@ -10,7 +10,7 @@ import {
 
 const { Meta } = Card;
 
-const ViewPokemon = ({ location, ...props }) => {
+const ViewPokemon = ({ location }) => {
 
     const pokemonURL = location && location.state && location.state.url
     const [pokemon, setPokemon] = useState(false)
@@ -20,7 +20,6 @@ const ViewPokemon = ({ location, ...props }) => {
 
     useEffect(() => {
         pokemonURL && getPokemon(pokemonURL).then(result => {
-            console.log("result", result)
             setPokemon(result && result.data)
         })
     }, [pokemonURL])// eslint-disable-line react-hooks/exhaustive-deps
@@ -57,7 +56,10 @@ const ViewPokemon = ({ location, ...props }) => {
 
     return (
         <div >
-
+            <PageHeader
+                className="site-page-header"
+                title="Pokemon Card"
+            />
             {pokemon && (
                 <Card
                     hoverable

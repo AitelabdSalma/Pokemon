@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import * as actions from "../../stores/actions";
 import { Link, withRouter } from 'react-router-dom';
-import { Card } from 'antd';
+import { Card, PageHeader } from 'antd';
 import { Tableau } from '../../components/UI/table';
 import {
     RightOutlined
@@ -10,18 +10,23 @@ import {
 
 const { Meta } = Card;
 
-const ViewPokemon = ({ location, ...props }) => {
+const TypePokemon = ({ location, ...props }) => {
+    const pageSize = 20
 
     const pokemonURL = location && location.state && location.state.url
     const [pokemonType, setPokemonType] = useState(false)
+    const [total, setTotal] = useState(0)
 
+
+    const [currentPage, setCurrentPage] = useState(0)
     const dispatch = useDispatch()
     const getPokemonType = (url) => dispatch(actions.getPokemonTypeAction(url))
 
     useEffect(() => {
         pokemonURL && getPokemonType(pokemonURL).then(result => {
-            console.log("result", result)
             setPokemonType(result && result.data)
+            let count = result && result.data && result.data.pokemon && result.data.pokemon.length
+            setTotal((count / pageSize))
         })
     }, [pokemonURL])// eslint-disable-line react-hooks/exhaustive-deps
 
@@ -55,22 +60,25 @@ const ViewPokemon = ({ location, ...props }) => {
 
     return (
         <div >
-
             {pokemonType && (
-                <Card
-                    hoverable
-                    style={{ width: 500 }}
-                >
+                <div>
+                    <PageHeader
+                        className="site-page-header"
+                        title="Pokemon type"
+                    />
                     <Meta title={`id : ${pokemonType.id}`} description={`Type : ${pokemonType.name}`} />
                     <br />
                     <Tableau
                         data={pokemonType.pokemon}
                         columns={columns}
+                        current={currentPage}
+                        onChange={(page) => setCurrentPage(page)}
+                        total={total}
                     />
-                </Card>)}
+                </div>)}
 
         </div>
     )
 }
 
-export default withRouter(ViewPokemon)
+export default withRouter(TypePokemon)
